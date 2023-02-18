@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: gainsboro;
+}
+#table-student {
+    border-collapse: collapse;
+}
+#table-student,
+#table-student td,
+#table-student th {
+    border: 1px solid #000;
+}

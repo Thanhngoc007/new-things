@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost:1433;databaseName=student_management_dev;encrypt=true;trustServerCertificate=true
+    username: sa
+    password: FaTraining2022
+
+server:
+  port: 8888
+
+app:
+  student:
+    default-password: abc123HGTEW@$^$&

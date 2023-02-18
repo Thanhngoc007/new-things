@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student list</title>
+    <th:block th:insert="fragment/head" />
+</head>
+<body>
+    <th:block th:insert="fragment/header" />
+    <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 mt-3">
+            <h1 th:text="${studentDto.id} ? 'Update student' : 'Add student'"></h1>
+            <div class="card p-4">
+                <form method="POST" th:action="@{${studentDto.id == null ? '/students/add' : '/students/update/' + studentDto.id}}"
+                      th:object="${studentDto}"
+                >
+                    <input type="hidden" th:field="*{id}" />
+                    <div class="mb-3 row">
+                        <label for="name" class="col-sm-2 col-form-label">
+                            Name <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="name" type="text" th:field="*{name}" required class="form-control" />
+                            <span class="text-danger" th:errors="*{name}"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="email" class="col-sm-2 col-form-label">
+                            Email <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="email" th:readonly="${studentDto.id}" type="text" th:field="*{email}" required class="form-control" />
+                            <span class="text-danger" th:errors="*{email}"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="dob" class="col-sm-2 col-form-label">
+                            Date of birth
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="dob" type="date" th:field="*{dateOfBirth}" required class="form-control" />
+                        </div>
+                    </div>
+                    <div class="mb-3 row align-items-baseline">
+                        <label for="gender" class="col-sm-2 col-form-label">
+                            Gender
+                        </label>
+                        <div id="gender" class="col-sm-10">
+                            <th:block th:each="genderEnum : ${T(fa.training.studentmanagement.enums.Gender).values()}">
+                                <input th:field="*{gender}" th:value="${genderEnum}"
+                                       th:checked="${genderEnum} == *{gender}"
+                                       class="form-check-input" type="radio"
+                                       name="inline-radios-example">
+                                <span th:text="${#strings.capitalize(#strings.toLowerCase(genderEnum))}"
+                                      class="form-check-label"></span>
+
+                            </th:block>
+                        </div>
+                    </div>
+                    <div class="mb-3 row align-items-baseline">
+                        <label for="classCode" class="col-sm-2 col-form-label">
+                            Class code
+                        </label>
+                        <div id="classCode" class="col-sm-10">
+                            <select name="classCode" multiple th:field="*{classIdList}" class="form-control">
+                                <option th:each="faClass : ${classDtoList}"
+                                        th:value="${faClass.id}"
+                                        th:text="${faClass.name}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="text-danger"></p>
+                    </div>
+                    <div>
+                        <a th:href="@{/students}" class="btn btn-sm btn-secondary">
+                            Back to list
+                        </a>
+                        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

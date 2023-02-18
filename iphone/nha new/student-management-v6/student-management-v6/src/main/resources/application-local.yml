@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost:1433;databaseName=studentSpring6;encrypt=true;trustServerCertificate=true
+    username: sa
+    password: dinhthai
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8889
+
+app:
+  student:
+    default-password: abc123456
